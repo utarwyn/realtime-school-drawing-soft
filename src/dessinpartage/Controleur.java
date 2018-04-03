@@ -49,6 +49,10 @@ public class Controleur {
 		this.metier.getZoneDessin().incrementerTailleCourante(tailleInc);
 	}
 
+	public void rafraichirZoneDessin() {
+		this.ihm.getDessinPane().repaint();
+	}
+
 	/* ---------- */
 	/*  CHAT BOX  */
 	/* ---------- */

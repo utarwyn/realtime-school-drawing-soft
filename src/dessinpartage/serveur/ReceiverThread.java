@@ -21,6 +21,8 @@ public class ReceiverThread extends Thread {
 
 	@Override
 	public void run() {
+		System.out.println("| Serveur connecté, prêt à recevoir les clients.");
+
 		while (true) {
 			try {
 				new ClientThread(this.metier, this.server.accept()).start();

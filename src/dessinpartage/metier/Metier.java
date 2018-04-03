@@ -10,8 +10,6 @@ public class Metier {
 
 	private Controleur controleur;
 
-	private Reseau reseau;
-
 	private SalonDiscussion salonDiscussion;
 
 	private ZoneDessin zoneDessin;
@@ -31,12 +29,18 @@ public class Metier {
 	}
 
 	private void initialiser() {
-		this.reseau = new Reseau();
+		Reseau reseau = new Reseau();
+
+		// Création des deux zones côté métier
 		this.salonDiscussion = new SalonDiscussion(this.controleur);
 		this.zoneDessin = new ZoneDessin(this.controleur);
 
-		this.reseau.ajouterEcouteur(this.salonDiscussion);
-		this.reseau.start();
+		// Ajout des écouteurs de message depuis le réseau
+		reseau.ajouterEcouteur(this.salonDiscussion);
+		reseau.ajouterEcouteur(this.zoneDessin);
+
+		// Démarrage du support réseau!
+		reseau.start();
 	}
 
 }

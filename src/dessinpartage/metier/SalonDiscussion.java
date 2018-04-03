@@ -40,7 +40,7 @@ public class SalonDiscussion implements MessageServeurListener {
 
 	public void envoyerMessage(String message) {
 		// On demande le nom d'utilisateur
-		while (this.nom == null) {
+		while (this.nom == null || this.nom.isEmpty()) {
 			this.nom = this.controleur.choixDuNom();
 		}
 

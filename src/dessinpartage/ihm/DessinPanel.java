@@ -9,11 +9,9 @@ import java.awt.event.*;
 import java.awt.geom.Ellipse2D;
 import java.util.List;
 
-class DessinPanel extends JPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
+public class DessinPanel extends JPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
 
 	private IHM ihm;
-
-	private boolean pressing;
 
 	private Point positionCourante;
 
