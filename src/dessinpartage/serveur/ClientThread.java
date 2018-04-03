@@ -48,7 +48,7 @@ public class ClientThread extends Thread {
 				this.out.flush();
 				Thread.sleep(100);
 			} catch (IOException | InterruptedException e) {
-				e.printStackTrace();
+				break;
 			}
 		}
 	}

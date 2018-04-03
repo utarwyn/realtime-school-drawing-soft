@@ -2,7 +2,11 @@ package dessinpartage;
 
 import dessinpartage.ihm.IHM;
 import dessinpartage.metier.Metier;
+import dessinpartage.metier.dessin.Forme;
+import dessinpartage.metier.dessin.FormeType;
+import dessinpartage.metier.dessin.Pinceau;
 
+import java.awt.*;
 import java.util.List;
 
 public class Controleur {
@@ -16,6 +20,33 @@ public class Controleur {
 		this.ihm = new IHM(this);
 
 		this.ihm.lancer();
+	}
+
+	/* ---------------- */
+	/*  ZONE DE DESSIN  */
+	/* ---------------- */
+	public List<Forme> getFormes() {
+		return this.metier.getZoneDessin().getFormes();
+	}
+
+	public void creerForme(int x, int y) {
+		this.metier.getZoneDessin().creerForme(x, y);
+	}
+
+	public Pinceau getPinceauDessin() {
+		return this.metier.getZoneDessin().getPinceau();
+	}
+
+	public void changerTypeCourant(FormeType type) {
+		this.metier.getZoneDessin().setTypeCourant(type);
+	}
+
+	public void changerCouleurCourrante(Color couleur) {
+		this.metier.getZoneDessin().setCouleurCourante(couleur);
+	}
+
+	public void incrementerTailleCourante(double tailleInc) {
+		this.metier.getZoneDessin().incrementerTailleCourante(tailleInc);
 	}
 
 	/* ---------- */

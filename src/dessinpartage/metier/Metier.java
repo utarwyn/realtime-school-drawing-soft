@@ -1,7 +1,10 @@
 package dessinpartage.metier;
 
 import dessinpartage.Controleur;
+import dessinpartage.metier.dessin.Forme;
 import dessinpartage.metier.net.Reseau;
+
+import java.util.List;
 
 public class Metier {
 
@@ -21,6 +24,10 @@ public class Metier {
 
 	public SalonDiscussion getSalonDiscussion() {
 		return salonDiscussion;
+	}
+
+	public ZoneDessin getZoneDessin() {
+		return this.zoneDessin;
 	}
 
 	private void initialiser() {

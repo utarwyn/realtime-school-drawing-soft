@@ -25,8 +25,11 @@ class DiscussionPanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	private void preparer() {
+		Color c = new Color(149, 175, 192);
+
 		this.setLayout(new BorderLayout());
 		this.setBackground(new Color(189, 195, 199));
+		this.setBorder(BorderFactory.createMatteBorder(0, 5, 0, 0, new Color(189, 215, 232)));
 		this.setPreferredSize(new Dimension(300, 600));
 		this.setOpaque(true);
 
@@ -34,25 +37,29 @@ class DiscussionPanel extends JPanel implements ActionListener, KeyListener {
 		this.messages = new JPanel();
 		this.messages.setLayout(new BoxLayout(this.messages, BoxLayout.Y_AXIS));
 		this.messages.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		this.messages.setBackground(new Color(250, 250, 250));
+		this.messages.setBackground(new Color(230, 230, 230));
 		this.messages.setOpaque(true);
 
 		this.scrollPane = new JScrollPane(this.messages);
 		scrollPane.setPreferredSize(new Dimension(300, 500));
-		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+		scrollPane.setBorder(BorderFactory.createLineBorder(c, 3));
 		scrollPane.setHorizontalScrollBar(null);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(12);
 		scrollPane.setOpaque(false);
 
 		this.champs = new JTextField();
 		this.envoyer = new JButton("Envoyer");
 
 		this.champs.setBorder(new CompoundBorder(
-				BorderFactory.createLineBorder(new Color(189, 195, 199), 2),
+				BorderFactory.createLineBorder(c, 3),
 				BorderFactory.createEmptyBorder(0, 15, 0, 15)
 		));
 		this.champs.addKeyListener(this);
 
-		this.envoyer.setBackground(new Color(149, 165, 166));
+		this.envoyer.setBorder(BorderFactory.createEmptyBorder());
+		this.envoyer.setFocusPainted(false);
+		this.envoyer.setPreferredSize(new Dimension(300, 30));
+		this.envoyer.setBackground(c);
 		this.envoyer.addActionListener(this);
 
 		this.add(this.scrollPane, BorderLayout.NORTH);

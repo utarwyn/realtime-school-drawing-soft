@@ -28,6 +28,14 @@ public class IHM extends JFrame {
 		this.setResizable(false);
 	}
 
+	public DessinPanel getDessinPane() {
+		return this.dessinPane;
+	}
+
+	public OutilsDessinPanel getOutilsDessinPan() {
+		return this.outilsDessinPan;
+	}
+
 	public Controleur getControleur() {
 		return this.controleur;
 	}
