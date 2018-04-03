@@ -11,6 +11,8 @@ public class Metier {
 
 	private SalonDiscussion salonDiscussion;
 
+	private ZoneDessin zoneDessin;
+
 	public Metier(Controleur controleur) {
 		this.controleur = controleur;
 
@@ -24,6 +26,7 @@ public class Metier {
 	private void initialiser() {
 		this.reseau = new Reseau();
 		this.salonDiscussion = new SalonDiscussion(this.controleur);
+		this.zoneDessin = new ZoneDessin(this.controleur);
 
 		this.reseau.ajouterEcouteur(this.salonDiscussion);
 		this.reseau.start();
