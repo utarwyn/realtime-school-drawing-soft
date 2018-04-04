@@ -1,21 +1,33 @@
 package dessinpartage.metier.net;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
-import java.net.Socket;
+import java.io.*;
+import java.net.*;
 import java.util.ArrayList;
 
 public class Reseau extends Thread {
 
 	private ArrayList<MessageServeurListener> ecouteurs;
 
-	public Reseau() {
+	private Socket tcpSocket;
+
+	private BufferedReader tcpSocketIn;
+
+	private PrintWriter tcpSocketOut;
+
+	public Reseau() throws IOException {
 		this.ecouteurs = new ArrayList<>();
+
+		this.tcpSocket = new Socket(InetAddress.getLocalHost(), 24000);
+		this.tcpSocketIn = new BufferedReader(new InputStreamReader(tcpSocket.getInputStream()));
+		this.tcpSocketOut = new PrintWriter(new OutputStreamWriter(tcpSocket.getOutputStream()));
+	}
+
+	public BufferedReader getTcpSocketIn() {
+		return tcpSocketIn;
+	}
+
+	public PrintWriter getTcpSocketOut() {
+		return tcpSocketOut;
 	}
 
 	public void ajouterEcouteur(MessageServeurListener ecouteur) {

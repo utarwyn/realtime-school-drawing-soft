@@ -15,6 +15,10 @@ import java.util.Map;
 
 public class OutilsDessinPanel extends JPanel implements ActionListener {
 
+	private static final Color ORIG_COLOR = new Color(220, 220, 220);
+
+	private static final Color HOVER_COLOR = Color.GRAY;
+
 	private IHM ihm;
 
 	private Map<JButton, FormeType> btnFormes;
@@ -46,7 +50,6 @@ public class OutilsDessinPanel extends JPanel implements ActionListener {
 
 			this.palette = this.ajouterBouton("palette");
 			this.effacer = this.ajouterBouton("effacer");
-			this.effacer.setEnabled(false);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -57,7 +60,7 @@ public class OutilsDessinPanel extends JPanel implements ActionListener {
 		this.add(this.tailleLab);
 
 		this.setPreferredSize(new Dimension(40, 600));
-		this.setBackground(new Color(220, 220, 220));
+		this.setBackground(ORIG_COLOR);
 		this.setOpaque(true);
 
 		this.maj();
@@ -66,7 +69,7 @@ public class OutilsDessinPanel extends JPanel implements ActionListener {
 	private JButton ajouterBouton(String icon) throws IOException {
 		JButton bouton = new JButton(new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/icons/" + icon + ".png"))));
 
-		bouton.setBackground(new Color(220, 220, 220));
+		bouton.setBackground(ORIG_COLOR);
 		bouton.setOpaque(true);
 		bouton.addActionListener(this);
 		bouton.setPreferredSize(new Dimension(40, 40));
@@ -82,7 +85,8 @@ public class OutilsDessinPanel extends JPanel implements ActionListener {
 		JButton bouton = (JButton) event.getSource();
 
 		if (bouton == this.effacer) {
-
+			this.setFormeCourrante(null);
+			this.effacer.setBackground(HOVER_COLOR);
 		} else if (bouton == this.palette) {
 			JColorChooser colorField = new JColorChooser();
 
@@ -97,6 +101,7 @@ public class OutilsDessinPanel extends JPanel implements ActionListener {
 				this.palette.setBackground(colorField.getColor());
 			}
 		} else {
+			this.effacer.setBackground(ORIG_COLOR);
 			this.setFormeCourrante(bouton);
 		}
 	}
@@ -104,11 +109,12 @@ public class OutilsDessinPanel extends JPanel implements ActionListener {
 	private void setFormeCourrante(JButton courant) {
 		for (JButton bouton : this.btnFormes.keySet())
 			if (bouton == courant)
-				bouton.setBackground(Color.GRAY);
+				bouton.setBackground(HOVER_COLOR);
 			else
-				bouton.setBackground(new Color(220, 220, 220));
+				bouton.setBackground(ORIG_COLOR);
 
-		this.ihm.getControleur().changerTypeCourant(this.btnFormes.get(courant));
+		if (courant != null)
+			this.ihm.getControleur().changerTypeCourant(this.btnFormes.get(courant));
 	}
 
 }

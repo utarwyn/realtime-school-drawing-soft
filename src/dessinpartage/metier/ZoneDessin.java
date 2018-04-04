@@ -8,8 +8,13 @@ import dessinpartage.metier.net.MessageServeurListener;
 import dessinpartage.metier.net.Reseau;
 
 import java.awt.*;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ZoneDessin implements MessageServeurListener {
@@ -20,10 +25,16 @@ public class ZoneDessin implements MessageServeurListener {
 
 	private List<Forme> formes;
 
-	ZoneDessin(Controleur controleur) {
+	ZoneDessin(Controleur controleur, Reseau reseau) {
 		this.controleur = controleur;
 		this.pinceau = new Pinceau(Color.BLACK, FormeType.CARRE_PLEIN, 50);
 		this.formes = new ArrayList<>();
+
+		try {
+			this.initialiser(reseau);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public List<Forme> getFormes() {
@@ -69,7 +80,16 @@ public class ZoneDessin implements MessageServeurListener {
 	@Override
 	public void nouveauMessage(String message) {
 		if (!message.startsWith("d:")) return;
-		String[] parts = message.substring(2).split(":");
+
+		// Ajout de la forme au métier ...
+		this.ajouterForme(message.substring(2));
+
+		// ... et mise à jour de l'IHM!
+		this.controleur.rafraichirZoneDessin();
+	}
+
+	private void ajouterForme(String formeStr) {
+		String[] parts = formeStr.split(":");
 
 		// Nouvelle forme!
 		FormeType type = FormeType.valueOf(parts[0]);
@@ -80,9 +100,15 @@ public class ZoneDessin implements MessageServeurListener {
 
 		// Ajout de la forme reçue par le réseau!
 		this.ajouterForme(new Forme(type, couleur, x, y, taille));
+	}
 
-		// Et mise à jour de l'IHM
-		this.controleur.rafraichirZoneDessin();
+	private void initialiser(Reseau reseau) throws IOException {
+		// Réception des données
+		String dessins = reseau.getTcpSocketIn().readLine().substring(3);
+
+		if (!dessins.isEmpty())
+			for (String dessin : dessins.split("@@@"))
+				this.ajouterForme(dessin);
 	}
 
 }

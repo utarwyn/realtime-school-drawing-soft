@@ -5,6 +5,7 @@ import dessinpartage.metier.Metier;
 import dessinpartage.metier.dessin.Forme;
 import dessinpartage.metier.dessin.FormeType;
 import dessinpartage.metier.dessin.Pinceau;
+import dessinpartage.metier.net.Reseau;
 
 import java.awt.*;
 import java.util.List;

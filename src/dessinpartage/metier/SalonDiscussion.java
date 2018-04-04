@@ -23,12 +23,12 @@ public class SalonDiscussion implements MessageServeurListener {
 
 	private String nom;
 
-	SalonDiscussion(Controleur controleur) {
+	SalonDiscussion(Controleur controleur, Reseau reseau) {
 		this.controleur = controleur;
 		this.messages = new ArrayList<>();
 
 		try {
-			this.initialiser();
+			this.initialiser(reseau);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -59,20 +59,13 @@ public class SalonDiscussion implements MessageServeurListener {
 		this.controleur.nouveauMessageIHM(text);
 	}
 
-	private void initialiser() throws IOException {
-		Socket socket = new Socket(InetAddress.getLocalHost(), 24000);
-
+	private void initialiser(Reseau reseau) throws IOException {
 		// Réception des données
-		BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		String messages = br.readLine();
-
+		String messages = reseau.getTcpSocketIn().readLine();
 		messages = messages.substring(3);
 
 		if (!messages.isEmpty())
 			this.messages = Arrays.asList(messages.split("@@@"));
-
-		br.close();
-		socket.close();
 	}
 
 }

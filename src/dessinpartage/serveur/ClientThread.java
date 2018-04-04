@@ -38,6 +38,8 @@ public class ClientThread extends Thread {
 
 					if (msg.startsWith("t:"))
 						this.serveur.nouveauMessage(msg.substring(2));
+					if (msg.startsWith("d:"))
+						this.serveur.nouveauDessin(msg.substring(2));
 
 					DatagramPacket packet = new DatagramPacket(buf, buf.length, this.serveur.getDatagramGroup(), 4446);
 					this.serveur.getDatagramSocket().send(packet);
@@ -53,10 +55,19 @@ public class ClientThread extends Thread {
 	}
 
 	private void initialiser() {
+		// Envoi des messages du tchat au client qui vient de se connecter
 		if (this.serveur.getMessages().size() > 0)
 			this.out.println("ts:" + String.join("@@@", this.serveur.getMessages()));
 		else
 			this.out.println("ts:");
+
+		this.out.flush();
+
+		// Envoi des dessins déjà présents au client
+		if (this.serveur.getDessins().size() > 0)
+			this.out.println("ds:" + String.join("@@@", this.serveur.getDessins()));
+		else
+			this.out.println("ds:");
 
 		this.out.flush();
 	}

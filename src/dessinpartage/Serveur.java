@@ -17,8 +17,11 @@ public class Serveur {
 
 	private ArrayList<String> messages;
 
+	private ArrayList<String> dessins;
+
 	private Serveur() {
 		this.messages = new ArrayList<>();
+		this.dessins = new ArrayList<>();
 
 		try {
 			this.datagramSocket = new DatagramSocket();
@@ -40,8 +43,16 @@ public class Serveur {
 		return this.messages;
 	}
 
+	public ArrayList<String> getDessins() {
+		return dessins;
+	}
+
 	public void nouveauMessage(String message) {
 		this.messages.add(message);
+	}
+
+	public void nouveauDessin(String dessin) {
+		this.dessins.add(dessin);
 	}
 
 	public static void main(String[] args) throws IOException {

@@ -3,7 +3,6 @@ package dessinpartage.serveur;
 import dessinpartage.Serveur;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 
 public class ReceiverThread extends Thread {
