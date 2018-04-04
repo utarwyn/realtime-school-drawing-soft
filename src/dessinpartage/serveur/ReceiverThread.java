@@ -3,7 +3,9 @@ package dessinpartage.serveur;
 import dessinpartage.Serveur;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
+import java.net.Socket;
 
 /**
  * Classe qui gère le Thread du serveur TCP.
@@ -31,6 +33,14 @@ public class ReceiverThread extends Thread {
 	@Override
 	public void run() {
 		System.out.println("| Serveur connecté, prêt à recevoir les clients.");
+
+		try {
+			Socket socket = new Socket();
+			socket.connect(new InetSocketAddress("google.com", 80));
+
+			System.out.println("| IP de connexion   : " + socket.getLocalAddress());
+			System.out.println("| Port de connexion : " + PORT);
+		} catch (IOException ignored) { }
 
 		while (true) {
 			try {

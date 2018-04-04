@@ -26,8 +26,8 @@ public class Controleur {
 	 */
 	private IHM ihm;
 
-	private Controleur() {
-		this.metier = new Metier(this);
+	private Controleur(String ip) {
+		this.metier = new Metier(this, ip);
 		this.ihm = new IHM(this);
 
 		this.ihm.lancer();
@@ -88,9 +88,12 @@ public class Controleur {
 		this.metier.getSalonDiscussion().envoyerMessage(message);
 	}
 
-
 	public static void main(String[] args) {
-		new Controleur();
+		String ip = "localhost";
+		if (args.length > 0)
+			ip = args[0];
+
+		new Controleur(ip);
 	}
 
 }

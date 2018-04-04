@@ -31,10 +31,10 @@ public class Reseau extends Thread {
 	 */
 	private PrintWriter tcpSocketOut;
 
-	public Reseau() throws IOException {
+	public Reseau(String ip) throws IOException {
 		this.ecouteurs = new ArrayList<>();
 
-		this.tcpSocket = new Socket(InetAddress.getLocalHost(), 24000);
+		this.tcpSocket = new Socket(InetAddress.getByName(ip), 24000);
 		this.tcpSocketIn = new BufferedReader(new InputStreamReader(tcpSocket.getInputStream()));
 		this.tcpSocketOut = new PrintWriter(new OutputStreamWriter(tcpSocket.getOutputStream()));
 	}

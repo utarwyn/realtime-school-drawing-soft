@@ -26,10 +26,10 @@ public class Metier {
 	 */
 	private ZoneDessin zoneDessin;
 
-	public Metier(Controleur controleur) {
+	public Metier(Controleur controleur, String ip) {
 		this.controleur = controleur;
 
-		this.initialiser();
+		this.initialiser(ip);
 	}
 
 	public SalonDiscussion getSalonDiscussion() {
@@ -43,12 +43,12 @@ public class Metier {
 	/**
 	 * Initialise le métier
 	 */
-	private void initialiser() {
+	private void initialiser(String ip) {
 		Reseau reseau;
 
 		try {
 			// Création du réseau et de la socket TCP
-			reseau = new Reseau();
+			reseau = new Reseau(ip);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return;

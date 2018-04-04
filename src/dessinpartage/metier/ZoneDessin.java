@@ -10,6 +10,8 @@ import dessinpartage.metier.net.Reseau;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -27,7 +29,7 @@ public class ZoneDessin implements MessageServeurListener {
 	ZoneDessin(Controleur controleur, Reseau reseau) {
 		this.controleur = controleur;
 		this.pinceau = new Pinceau(Color.BLACK, FormeType.CARRE_PLEIN, 50);
-		this.formes = new ArrayList<>();
+		this.formes = Collections.synchronizedList(new ArrayList<>());
 
 		try {
 			this.initialiser(reseau);
@@ -112,9 +114,13 @@ public class ZoneDessin implements MessageServeurListener {
 		// Récupération de la forme à supprimer à la position donnée
 		Forme forme = null;
 
-		for (Forme f : this.formes)
+		Iterator<Forme> formesIt = this.formes.iterator();
+		while (formesIt.hasNext()) {
+			Forme f = formesIt.next();
+
 			if (f.isInside(x, y))
 				forme = f;
+		}
 
 		if (forme == null) return;
 
