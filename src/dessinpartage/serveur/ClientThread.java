@@ -1,6 +1,5 @@
 package dessinpartage.serveur;
 
-import com.sun.deploy.util.StringUtils;
 import dessinpartage.Serveur;
 
 import java.io.BufferedReader;
@@ -55,7 +54,7 @@ public class ClientThread extends Thread {
 
 	private void initialiser() {
 		if (this.serveur.getMessages().size() > 0)
-			this.out.println("ts:" + StringUtils.join(this.serveur.getMessages(), "@@@"));
+			this.out.println("ts:" + String.join("@@@", this.serveur.getMessages()));
 		else
 			this.out.println("ts:");
 
