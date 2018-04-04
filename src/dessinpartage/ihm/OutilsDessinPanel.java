@@ -87,6 +87,8 @@ public class OutilsDessinPanel extends JPanel implements ActionListener {
 		if (bouton == this.effacer) {
 			this.setFormeCourrante(null);
 			this.effacer.setBackground(HOVER_COLOR);
+
+			this.ihm.getDessinPane().setEffacerMode(true);
 		} else if (bouton == this.palette) {
 			JColorChooser colorField = new JColorChooser();
 
@@ -102,6 +104,8 @@ public class OutilsDessinPanel extends JPanel implements ActionListener {
 			}
 		} else {
 			this.effacer.setBackground(ORIG_COLOR);
+			this.ihm.getDessinPane().setEffacerMode(false);
+
 			this.setFormeCourrante(bouton);
 		}
 	}

@@ -41,11 +41,9 @@ public class ZoneDessin implements MessageServeurListener {
 		return new ArrayList<>(this.formes);
 	}
 
-	public void creerForme(int x, int y) {
+	public void envoyerForme(int x, int y) {
 		double taille = this.pinceau.getTaille();
 		double rX = x - taille/2, rY = y - taille/2;
-
-		this.ajouterForme(new Forme(this.pinceau.getType(), this.pinceau.getCouleur(), rX, rY, taille));
 
 		try {
 			Reseau.envoyer(
@@ -77,8 +75,36 @@ public class ZoneDessin implements MessageServeurListener {
 		this.pinceau.setTaille(Math.min(300, Math.max(10, this.pinceau.getTaille() + tailleInc * 2)));
 	}
 
+	public void supprimerForme(int x, int y) {
+		// Récupération de la forme à supprimer à la position donnée
+		Forme forme = null;
+
+		for (Forme f : this.formes)
+			if (f.isInside(x, y))
+				forme = f;
+
+		if (forme == null) return;
+
+		// Et envoi de l'identifiant de la forme à supprimer si elle existe
+		try {
+			Reseau.envoyer("r:" + forme.getId());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public void nouveauMessage(String message) {
+		// Suppression d'une forme depuis le serveur
+		if (message.startsWith("r:")) {
+			int id = Integer.parseInt(message.substring(2));
+
+			this.formes.removeIf(forme -> forme.getId() == id);
+			this.controleur.rafraichirZoneDessin();
+
+			return;
+		}
+
 		if (!message.startsWith("d:")) return;
 
 		// Ajout de la forme au métier ...
@@ -92,14 +118,15 @@ public class ZoneDessin implements MessageServeurListener {
 		String[] parts = formeStr.split(":");
 
 		// Nouvelle forme!
-		FormeType type = FormeType.valueOf(parts[0]);
-		Color couleur = new Color(Integer.parseInt(parts[1]));
-		double x = Double.parseDouble(parts[2]);
-		double y = Double.parseDouble(parts[3]);
-		double taille = Double.parseDouble(parts[4]);
+		int id = Integer.valueOf(parts[0]);
+		FormeType type = FormeType.valueOf(parts[1]);
+		Color couleur = new Color(Integer.parseInt(parts[2]));
+		double x = Double.parseDouble(parts[3]);
+		double y = Double.parseDouble(parts[4]);
+		double taille = Double.parseDouble(parts[5]);
 
 		// Ajout de la forme reçue par le réseau!
-		this.ajouterForme(new Forme(type, couleur, x, y, taille));
+		this.ajouterForme(new Forme(id, type, couleur, x, y, taille));
 	}
 
 	private void initialiser(Reseau reseau) throws IOException {

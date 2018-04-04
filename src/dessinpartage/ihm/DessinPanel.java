@@ -15,6 +15,8 @@ public class DessinPanel extends JPanel implements MouseListener, MouseMotionLis
 
 	private Point positionCourante;
 
+	private boolean effacerMode;
+
 	DessinPanel(IHM ihm) {
 		this.ihm = ihm;
 
@@ -31,6 +33,10 @@ public class DessinPanel extends JPanel implements MouseListener, MouseMotionLis
 		this.setOpaque(true);
 	}
 
+	void setEffacerMode(boolean effacer) {
+		this.effacerMode = effacer;
+	}
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -43,11 +49,12 @@ public class DessinPanel extends JPanel implements MouseListener, MouseMotionLis
 		List<Forme> formes = this.ihm.getControleur().getFormes();
 
 		// On ajoute une forme temporaire pour savoir ce que l'utilisateur va dessiner
-		if (this.positionCourante != null) {
+		// (Pas en mode "effacer")
+		if (this.positionCourante != null && !this.effacerMode) {
 			Pinceau pinceau = this.ihm.getControleur().getPinceauDessin();
 
 			formes.add(new Forme(
-					pinceau.getType(), pinceau.getCouleur(),
+					-1, pinceau.getType(), pinceau.getCouleur(),
 					positionCourante.getX()-pinceau.getTaille()/2,
 					positionCourante.getY()-pinceau.getTaille()/2,
 					pinceau.getTaille()
@@ -83,8 +90,10 @@ public class DessinPanel extends JPanel implements MouseListener, MouseMotionLis
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		this.ihm.getControleur().creerForme(e.getX(), e.getY());
-		this.repaint();
+		if (!this.effacerMode)
+			this.ihm.getControleur().envoyerForme(e.getX(), e.getY());
+		else
+			this.ihm.getControleur().supprimerForme(e.getX(), e.getY());
 	}
 
 	@Override
@@ -105,8 +114,10 @@ public class DessinPanel extends JPanel implements MouseListener, MouseMotionLis
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		this.ihm.getControleur().creerForme(e.getX(), e.getY());
-		this.repaint();
+		if (!this.effacerMode)
+			this.ihm.getControleur().envoyerForme(e.getX(), e.getY());
+		else
+			this.ihm.getControleur().supprimerForme(e.getX(), e.getY());
 	}
 
 	@Override

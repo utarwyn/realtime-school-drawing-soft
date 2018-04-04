@@ -34,12 +34,18 @@ public class ClientThread extends Thread {
 				String msg = this.in.readLine();
 
 				if (msg != null) {
+					// Modification du message en ajoutant l'identifiant pour un nouveau dessin
+					if (msg.startsWith("d:"))
+						msg = "d:" + (this.serveur.getDessins().size() + 1) + ":" + msg.substring(2);
+
 					byte[] buf = msg.getBytes();
 
 					if (msg.startsWith("t:"))
 						this.serveur.nouveauMessage(msg.substring(2));
 					if (msg.startsWith("d:"))
 						this.serveur.nouveauDessin(msg.substring(2));
+					if (msg.startsWith("r:"))
+						this.serveur.supprimerDessin(Integer.parseInt(msg.substring(2)));
 
 					DatagramPacket packet = new DatagramPacket(buf, buf.length, this.serveur.getDatagramGroup(), 4446);
 					this.serveur.getDatagramSocket().send(packet);

@@ -55,6 +55,10 @@ public class Serveur {
 		this.dessins.add(dessin);
 	}
 
+	public void supprimerDessin(int id) {
+		this.dessins.removeIf(dessin -> Integer.parseInt(dessin.substring(0, 1)) == id);
+	}
+
 	public static void main(String[] args) throws IOException {
 		Serveur serveur = new Serveur();
 

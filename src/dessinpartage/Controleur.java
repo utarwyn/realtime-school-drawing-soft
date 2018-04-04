@@ -5,7 +5,6 @@ import dessinpartage.metier.Metier;
 import dessinpartage.metier.dessin.Forme;
 import dessinpartage.metier.dessin.FormeType;
 import dessinpartage.metier.dessin.Pinceau;
-import dessinpartage.metier.net.Reseau;
 
 import java.awt.*;
 import java.util.List;
@@ -30,8 +29,8 @@ public class Controleur {
 		return this.metier.getZoneDessin().getFormes();
 	}
 
-	public void creerForme(int x, int y) {
-		this.metier.getZoneDessin().creerForme(x, y);
+	public void envoyerForme(int x, int y) {
+		this.metier.getZoneDessin().envoyerForme(x, y);
 	}
 
 	public Pinceau getPinceauDessin() {
@@ -48,6 +47,10 @@ public class Controleur {
 
 	public void incrementerTailleCourante(double tailleInc) {
 		this.metier.getZoneDessin().incrementerTailleCourante(tailleInc);
+	}
+
+	public void supprimerForme(int x, int y) {
+		this.metier.getZoneDessin().supprimerForme(x, y);
 	}
 
 	public void rafraichirZoneDessin() {
