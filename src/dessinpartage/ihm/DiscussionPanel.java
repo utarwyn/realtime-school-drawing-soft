@@ -5,16 +5,35 @@ import javax.swing.border.CompoundBorder;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Panel de discussion dans la partie Graphique de la fenêtre.
+ * @version 1.0.0
+ */
 class DiscussionPanel extends JPanel implements ActionListener, KeyListener {
 
+	/**
+	 * Classe d'IHM
+	 */
 	private IHM ihm;
 
+	/**
+	 * Stocke les messages reçus depuis le serveur
+	 */
 	private JPanel messages;
 
+	/**
+	 * Panel de scroll pour les messages
+	 */
 	private JScrollPane scrollPane;
 
+	/**
+	 * Champs utilisé pour rentrer un message
+	 */
 	private JTextField champs;
 
+	/**
+	 * Bouton d'envoi
+	 */
 	private JButton envoyer;
 
 	DiscussionPanel(IHM ihm) {

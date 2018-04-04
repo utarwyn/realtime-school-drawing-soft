@@ -2,6 +2,11 @@ package dessinpartage.metier.dessin;
 
 import java.awt.*;
 
+/**
+ * Représente une forme côté métier.
+ * Une forme = un dessin.
+ * @version 1.0.0
+ */
 public class Forme {
 
 	private int id;

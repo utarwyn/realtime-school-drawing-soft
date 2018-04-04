@@ -1,18 +1,29 @@
 package dessinpartage.metier;
 
 import dessinpartage.Controleur;
-import dessinpartage.metier.dessin.Forme;
 import dessinpartage.metier.net.Reseau;
 
 import java.io.IOException;
-import java.util.List;
 
+/**
+ * Classe coeur du programme. Gère globalement la partie métier.
+ * @version 1.0.0
+ */
 public class Metier {
 
+	/**
+	 * Contrôleur du programme
+	 */
 	private Controleur controleur;
 
+	/**
+	 * La représentation du salon de discussion
+	 */
 	private SalonDiscussion salonDiscussion;
 
+	/**
+	 * La représentation de la zone de dessin
+	 */
 	private ZoneDessin zoneDessin;
 
 	public Metier(Controleur controleur) {
@@ -29,6 +40,9 @@ public class Metier {
 		return this.zoneDessin;
 	}
 
+	/**
+	 * Initialise le métier
+	 */
 	private void initialiser() {
 		Reseau reseau;
 

@@ -9,12 +9,25 @@ import java.awt.event.*;
 import java.awt.geom.Ellipse2D;
 import java.util.List;
 
+/**
+ * Panel utilisé pour le dessin
+ * @version 1.0.0
+ */
 public class DessinPanel extends JPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
 
+	/**
+	 * Classe IHM
+	 */
 	private IHM ihm;
 
+	/**
+	 * Stocke la position courante de la souris
+	 */
 	private Point positionCourante;
 
+	/**
+	 * En mode "effacer" ?
+	 */
 	private boolean effacerMode;
 
 	DessinPanel(IHM ihm) {

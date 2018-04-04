@@ -4,14 +4,30 @@ import dessinpartage.Controleur;
 
 import javax.swing.*;
 
+/**
+ * Classe d'IHM. Est aussi la fenêtre principale du programme.
+ * @version 1.0.0
+ */
 public class IHM extends JFrame {
 
+	/**
+	 * Classe Contrôleur
+	 */
 	private Controleur controleur;
 
+	/**
+	 * Panneau de dessin
+	 */
 	private DessinPanel dessinPane;
 
+	/**
+	 * Panneau avec les outils de dessin
+	 */
 	private OutilsDessinPanel outilsDessinPan;
 
+	/**
+	 * Panneau de discussion
+	 */
 	private DiscussionPanel discusPane;
 
 	public IHM(Controleur controleur) {
@@ -40,10 +56,17 @@ public class IHM extends JFrame {
 		return this.controleur;
 	}
 
+	/**
+	 * Lancement de la fenêtre
+	 */
 	public void lancer() {
 		this.setVisible(true);
 	}
 
+	/**
+	 * Ajout d'un message dans le panel de discussion
+	 * @param message
+	 */
 	public void nouveauMessage(String message) {
 		this.discusPane.nouveauMessage(message);
 	}

@@ -9,10 +9,21 @@ import dessinpartage.metier.dessin.Pinceau;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * Classe contrôleur du programme. Est le point central.
+ * Elle fait le lien entre la partie métier et la partie IHM.
+ * @version 1.0.0
+ */
 public class Controleur {
 
+	/**
+	 * Classe métier
+	 */
 	private Metier metier;
 
+	/**
+	 * Classe IHM
+	 */
 	private IHM ihm;
 
 	private Controleur() {

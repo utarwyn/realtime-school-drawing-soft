@@ -2,6 +2,10 @@ package dessinpartage.metier.dessin;
 
 import java.awt.*;
 
+/**
+ * Représente le pinceau utilisé pour créer de nouvelles formes.
+ * @version 1.0.0
+ */
 public class Pinceau {
 
 	private Color couleur;

@@ -1,5 +1,9 @@
 package dessinpartage.metier.dessin;
 
+/**
+ * Classe pour gérer les types de forme disponibles.
+ * @version 1.0.0
+ */
 public enum FormeType {
 
 	CERCLE(false),

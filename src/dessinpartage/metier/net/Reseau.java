@@ -1,17 +1,34 @@
 package dessinpartage.metier.net;
 
 import java.io.*;
-import java.net.*;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * Classe réseau.
+ * Elle gère la connexion du client au serveur.
+ * @version 1.0.0
+ */
 public class Reseau extends Thread {
 
 	private ArrayList<MessageServeurListener> ecouteurs;
 
+	/**
+	 * Stocket TCP
+	 */
 	private Socket tcpSocket;
 
+	/**
+	 * Flux entrant de données depuis le serveur de socket TCP
+	 */
 	private BufferedReader tcpSocketIn;
 
+	/**
+	 * Flux sortant de données vers le serveur de socket TCP
+	 */
 	private PrintWriter tcpSocketOut;
 
 	public Reseau() throws IOException {
@@ -30,6 +47,10 @@ public class Reseau extends Thread {
 		return tcpSocketOut;
 	}
 
+	/**
+	 * Ajoute une classe qui va écouter l'entrée de message depuis le serveur multicast UDP
+	 * @param ecouteur Classe écouteur de messages
+	 */
 	public void ajouterEcouteur(MessageServeurListener ecouteur) {
 		this.ecouteurs.add(ecouteur);
 	}
@@ -56,6 +77,12 @@ public class Reseau extends Thread {
 		}
 	}
 
+	/**
+	 * Envoi un message au serveur socket TCP
+	 * @param message Message à envoyer
+	 * @return Retour du serveur TCP
+	 * @throws IOException Lancée si un problème a lieu pendant le transfert
+	 */
 	public static String envoyer(String message) throws IOException {
 		Socket socket = new Socket(InetAddress.getLocalHost(), 24000);
 		String value;
